@@ -1,0 +1,45 @@
+<html>
+<head>
+	<script src='fdb-all.min.js'></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="記帳.css">
+  <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <title>記帳系統</title>
+</head>
+<body style="font-family:'Nosifer', cursive">
+<p style='font-size: 90px' class='text-center'>新增支出</p>	
+<br><input type="date" name="" id="idOfDate" style="font-size: 30px">date</input>
+<br><select name='select' id="idOfType" style="font-size: 30px">type
+	<option value="value1" selected>食</option>
+	<option value="value2">衣</option>
+	<option value="value3">住</option>
+	<option value="value4">行</option>
+	<option value="value5">育</option>
+	<option value="value6">樂</option>
+</select> 
+<br><input type="textbox" name="" id="idOfThing" style="font-size: 30px">class</input>
+<br><input type="textbox" name="" id="idOfPrice" style="font-size: 30px">price</input>
+<br><button id="savedata" class="btn btn-info btn-lg btn-block">save</button>
+<script type="text/javascript">
+var fdb = new ForerunnerDB();
+var db = fdb.db("allout");
+var cashcollection = db.collection('cashout');
+
+function SAVE(){
+	var typeOfData = $("#idOfType :selected").val();
+	var newObject={
+		date:$('#idOfDate').val(),
+		type:typeOfData,
+		thing:$('#idOfThing').val(),
+		price:$('#idOfPrice').val(),
+	}
+	cashcollection.insert(newObject);
+}
+$('#savedata').click(SAVE);
+
+</script>
+</body>
+</html>
