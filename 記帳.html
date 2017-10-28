@@ -7,28 +7,57 @@
   <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <title>記帳系統</title>
 </head>
 <body style="font-family:'Nosifer', cursive">
-<p style='font-size: 90px' class='text-center'>新增支出</p>	
-<br><input type="date" name="" id="idOfDate" style="font-size: 30px">date</input>
-<br><select name='select' id="idOfType" style="font-size: 30px">type
-	<option value="value1" selected>食</option>
-	<option value="value2">衣</option>
-	<option value="value3">住</option>
-	<option value="value4">行</option>
-	<option value="value5">育</option>
-	<option value="value6">樂</option>
+<p style='font-size: 90px' class='text-center'>create expenses</p>	
+<br>date<input type="date" name="" id="idOfDate" style="font-size: 30px"></input>
+<br>type<select name='select' id="idOfType" style="font-size: 30px">
+	<option value="food" selected>food</option>
+	<option value="clothes">clothes</option>
+	<option value="lives">lives</option>
+	<option value="transportation fee">transportation fee</option>
+	<option value="education">education</option>
+	<option value="fun">fun</option>
 </select> 
-<br><input type="textbox" name="" id="idOfThing" style="font-size: 30px">class</input>
-<br><input type="textbox" name="" id="idOfPrice" style="font-size: 30px">price</input>
+<br>class<input type="textbox" name="" id="idOfThing" style="font-size: 30px" placeholder="what did you buy?"></input>
+<br>price<input type="textbox" name="" id="idOfPrice" style="font-size: 30px" placeholder="how much is it?"></input>
 <br><button id="savedata" class="btn btn-info btn-lg btn-block">save</button>
+<br><button id="searchdata"type="button" class="btn btn-primary">search</button>
+
+<table class="table table-dark">
+<thead>
+	<th scope="col">#</th>
+	<th scope="col">date</th>
+	<th scope="col">type</th>
+	<th scope="col">class</th>
+	<th>price</th>
+</thead>
+<tbody></tbody>
+</table>
 <script type="text/javascript">
 var fdb = new ForerunnerDB();
 var db = fdb.db("allout");
 var cashcollection = db.collection('cashout');
 
 function SAVE(){
+	swal({
+  title: "Are you sure?",
+  text: "Once save, you will not be able to delete!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    swal("success!!!!!", {
+      icon: "success",
+    });
+  } else {
+    swal("delete success!");
+  }
+});
 	var typeOfData = $("#idOfType :selected").val();
 	var newObject={
 		date:$('#idOfDate').val(),
@@ -37,9 +66,25 @@ function SAVE(){
 		price:$('#idOfPrice').val(),
 	}
 	cashcollection.insert(newObject);
+	$('#idOfPrice').val("");
+	$('#idOfThing').val("");
+	$('#idOfDate').val("");
+	$('#idOfType option[value=value1]').prop('selected',true);
+};
+function SEARCH(){
+	var show =cashcollection.find(
+	{},
+	{$oredrBy:{date:-1},$limit:10}
+	);
+	debugger;
+	for(i=0;i<show.length;i++){
+	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
+    +'<td>'+show[i].price+'</td>'
+ 	);
+	};
 }
 $('#savedata').click(SAVE);
-
+$("#searchdata").click(SEARCH);
 </script>
 </body>
-</html> 
+</html> 
