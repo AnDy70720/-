@@ -70,12 +70,15 @@ function SAVE(){
 	$('#idOfThing').val("");
 	$('#idOfDate').val("");
 	$('#idOfType option[value=value1]').prop('selected',true);
+	debugger;
+	cashcollection.save();
 };
 function SEARCH(){
 	var show =cashcollection.find(
 	{},
 	{$oredrBy:{date:-1},$limit:10}
 	);
+
 	debugger;
 	for(i=0;i<show.length;i++){
 	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
