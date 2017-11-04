@@ -13,27 +13,45 @@
 </head>
 <body style="font-family:'Nosifer', cursive">
 
-<table class="table table-dark">
+<table   class="table table-dark">
 <thead>
+<br><input type="checkbox" style="font-size: 50px" id="thismonthsearch"> this month</input>
+<br><input type="checkbox" style="font-size:50px" id="searchrange">search with range</input>
+<br><input type="date" name="" id="idOfStartDate" style="font-size: 20px">----</input>
+<input type="date" name="" id='idOfEndDate' style="font-size: 20px">
 	<th scope="col"><button id="searchdata"type="button" class="btn btn-primary">search</button></th>
 	<th scope="col">date</th>
 	<th scope="col">type</th>
 	<th scope="col">class</th>
 	<th>price</th>
 </thead>
-<tbody></tbody>
+<tbody id='showdata'></tbody>
 </table>
 <script type="text/javascript">
 var fdb = new ForerunnerDB();
 var db = fdb.db("allout");
 var cashcollection = db.collection('cashout');
+try{
+	cashcollection.load();
+}catch(e){
+	alert(e);
+}
 function SEARCH(){
+	$("#showdata").find("tr").remove();
 	var show =cashcollection.find(
 	{},
 	{$oredrBy:{date:-1},$limit:10}
 	);
-	
-	debugger;
+	var date = new Date();
+	var thismonth=date.getUTCMonth();
+	var thisyear=date.getUTCFUllYear();
+	var thismonthshow = cashcollection.find(
+		
+		)
+	if($("#thismonthsearch").prop("checked")==true){
+		
+	}
+
 	for(i=0;i<show.length;i++){
 	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
     +'<td>'+show[i].price+'</td>'

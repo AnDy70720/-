@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <title>記帳系統</title>
+  <title>新增支出</title>
 </head>
 <body style="font-family:'Nosifer', cursive">
 <p style='font-size: 90px' class='text-center'>create expenses</p>	
@@ -24,22 +24,16 @@
 <br>class<input type="textbox" name="" id="idOfThing" style="font-size: 30px" placeholder="what did you buy?"></input>
 <br>price<input type="textbox" name="" id="idOfPrice" style="font-size: 30px" placeholder="how much is it?"></input>
 <br><button id="savedata" class="btn btn-info btn-lg btn-block">save</button>
-<br><button id="searchdata"type="button" class="btn btn-primary">search</button>
-
-<table class="table table-dark">
-<thead>
-	<th scope="col">#</th>
-	<th scope="col">date</th>
-	<th scope="col">type</th>
-	<th scope="col">class</th>
-	<th>price</th>
-</thead>
-<tbody></tbody>
-</table>
 <script type="text/javascript">
 var fdb = new ForerunnerDB();
 var db = fdb.db("allout");
 var cashcollection = db.collection('cashout');
+
+try{
+	cashcollection.load();
+}catch(e){
+	alert(e);
+}
 
 function SAVE(){
 	swal({
@@ -73,21 +67,7 @@ function SAVE(){
 	debugger;
 	cashcollection.save();
 };
-function SEARCH(){
-	var show =cashcollection.find(
-	{},
-	{$oredrBy:{date:-1},$limit:10}
-	);
-
-	debugger;
-	for(i=0;i<show.length;i++){
-	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
-    +'<td>'+show[i].price+'</td>'
- 	);
-	};
-}
 $('#savedata').click(SAVE);
-$("#searchdata").click(SEARCH);
 </script>
 </body>
 </html> 
