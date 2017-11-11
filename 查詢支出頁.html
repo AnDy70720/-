@@ -80,18 +80,20 @@ function SEARCH(){
 		if($("#searchrange").prop("checked")==false){
 		for(i=0;i<show.length;i++){
 	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
-    +'<td>'+show[i].price+'</td>'+'<td>'+'<button class="c">delete</button>'+'</td>'
+    +'<td>'+show[i].price+'</td>'+'<td>'+'<button class="c" data-remove='+show[i]._id+'>delete</button>'+'</td>'
  	);
 		};
 		}
 	}	
 };
 function remove(){
-	debugger;
+	cashcollection.remove({
+     _id:$(this).data('remove')
+  })
 	$($(this).closest('tr')).remove();
 }
-$("#searchdata").click(SEARCH);
-$(".c").click(remove);
+$("#searchdata").click(SEARCH);    //.click的使用是在「事前」（程式一跑就要出來的按鈕）
+$("#showdata").on('click','.c',remove);     //.on('click',,)的使用是在「事後」（像這樣新增出來時才有的class，需要呼叫時使用）
 </script>
 </body>
 </html>
