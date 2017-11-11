@@ -24,6 +24,7 @@
 	<th scope="col">type</th>
 	<th scope="col">class</th>
 	<th>price</th>
+	<th>button</th>
 </thead>
 <tbody id='showdata'></tbody>
 </table>
@@ -42,23 +43,55 @@ function SEARCH(){
 	{},
 	{$oredrBy:{date:-1},$limit:10}
 	);
-	var date = new Date();
-	var thismonth=date.getUTCMonth();
-	var thisyear=date.getUTCFUllYear();
-	var thismonthshow = cashcollection.find(
-		
-		)
 	if($("#thismonthsearch").prop("checked")==true){
-		
-	}
+		var thisDate= new Date();
+		var searchheadrange=thisDate.getUTCFullYear()+'-'+(thisDate.getUTCMonth()+1)+'-01';
+		var searchendrange =thisDate.getUTCFullYear()+'-'+(thisDate.getUTCMonth()+1)+'-31';
+	 	var thismonthshow = cashcollection.find({
+	 		date:{
+	 			'$gte':searchheadrange,
+	 			'$lte':searchendrange
+	 		}
+		});
 
-	for(i=0;i<show.length;i++){
+		for(i=0;i<thismonthshow.length;i++){
+			$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+thismonthshow[i].date+'</td>'+'<td>'+thismonthshow[i].type+'</td>'+'<td>'+thismonthshow[i].thing+'</td>'
+    		+'<td>'+thismonthshow[i].price+'</td>'+'<td>'+'<button id="c">delete</button>'+'</td>'
+    		);	
+		}
+	}
+	if($("#searchrange").prop("checked")==true){
+		var thisDate= $('#idOfStartDate').val();
+		var thisenddate= $('#idOfEndDate').val();
+	 	var thismonthshow = cashcollection.find({
+	 		date:{
+	 			'$gte':thisDate,
+	 			'$lte':thisenddate
+	 		}
+		});
+
+		for(i=0;i<thismonthshow.length;i++){
+			$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+thismonthshow[i].date+'</td>'+'<td>'+thismonthshow[i].type+'</td>'+'<td>'+thismonthshow[i].thing+'</td>'
+    		+'<td>'+thismonthshow[i].price+'</td>'+'<td>'+'<button id="c">delete</button>'+'</td>'
+    		);	
+		};
+	}
+	if($("#thismonthsearch").prop("checked")==false){
+		if($("#searchrange").prop("checked")==false){
+		for(i=0;i<show.length;i++){
 	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
-    +'<td>'+show[i].price+'</td>'
+    +'<td>'+show[i].price+'</td>'+'<td>'+'<button class="c">delete</button>'+'</td>'
  	);
-	};
+		};
+		}
+	}	
+};
+function remove(){
+	debugger;
+	$($(this).closest('tr')).remove();
 }
 $("#searchdata").click(SEARCH);
+$(".c").click(remove);
 </script>
 </body>
 </html>
