@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='fdb-all.min.js'></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="記帳.css">
+  <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<title>查詢支出比例</title>
+</head>
+<body style="font-family:'Nosifer', cursive">
+<table class="table table-dark">
+<thead>
+<th>#</th><th>costs</th><th>presant</th>
+</thead>
+<tbody></tbody>
+</table>
+<script type="text/javascript">
+var fdb = new ForerunnerDB();
+var db = fdb.db("allout");
+var cashcollection = db.collection('cashout');
+try{
+	cashcollection.load();
+	setTimeout(classify, 1000);
+	
+}catch(e){
+	alert(e);
+}
+function classify(){
+		var partTheFood=cashcollection.find({
+			type:'food'
+		});
+		var foodcost=partTheFood[0].price
+		var partTheClothes=cashcollection.find({
+			type:'clothes'
+		});
+		var foodcost=partTheClothes[0].price
+		var partTheLives=cashcollection.find({
+			type:'lives'
+		});
+		var partTheTransportationFee=cashcollection.find({
+			type:'transportation fee'
+		});
+		var partTheEducation=cashcollection.find({
+			type:'education'
+		});
+		var partTheFun=cashcollection.find({
+			type:'fun'
+		});
+	// console.log(partTheClothes);
+	for(var i=1;i<partTheFood.length;i++){
+		var foodcost=foodcost+partTheFood[i].price
+	}
+	debugger;
+	}
+
+</script>
+</body>
+</html>

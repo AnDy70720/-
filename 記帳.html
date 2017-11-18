@@ -52,6 +52,13 @@ function SAVE(){
     swal("delete success!");
   }
 });
+if($('#idOfDate').val()!=''){
+	debugger;
+	if($('#idOfType').val()!=''){
+		debugger;
+		if($('#idOfThing').val()!=''){
+			debugger;
+			if($('#idOfprice').val()!=''){
 	var typeOfData = $("#idOfType :selected").val();
 	var newObject={
 		date:$('#idOfDate').val(),
@@ -65,6 +72,7 @@ function SAVE(){
 	$('#idOfDate').val("");
 	$('#idOfType option[value=value1]').prop('selected',true);
 	cashcollection.save();
+	}}}}
 };
 $('#savedata').click(SAVE);
 </script>

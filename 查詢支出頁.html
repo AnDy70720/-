@@ -19,7 +19,8 @@
 <br><input type="checkbox" style="font-size:50px" id="searchrange">search with range</input>
 <br><input type="date" name="" id="idOfStartDate" style="font-size: 20px">----</input>
 <input type="date" name="" id='idOfEndDate' style="font-size: 20px">
-	<th scope="col"><button id="searchdata"type="button" class="btn btn-primary">search</button></th>
+	<th scope="col"><button id="searchdata" type="button" class="btn btn-primary">search</button>
+					<a href="查詢比例.html" class="btn btn-primary" role="button">search presant</a></th>
 	<th scope="col">date</th>
 	<th scope="col">type</th>
 	<th scope="col">class</th>
@@ -37,13 +38,20 @@ try{
 }catch(e){
 	alert(e);
 }
+function protection(){
+	$('#thismonthsearch').prop('checked',false);
+};
+function PROTECTION(){
+	$('#searchrange').prop('checked',false);
+}
 function SEARCH(){
 	$("#showdata").find("tr").remove();
 	var show =cashcollection.find(
 	{},
 	{$oredrBy:{date:-1},$limit:10}
 	);
-	if($("#thismonthsearch").prop("checked")==true){
+	if($("#thismonthsearch").prop("checked")==true){ 
+		$("#searchrange").prop('checked',false);
 		var thisDate= new Date();
 		var searchheadrange=thisDate.getUTCFullYear()+'-'+(thisDate.getUTCMonth()+1)+'-01';
 		var searchendrange =thisDate.getUTCFullYear()+'-'+(thisDate.getUTCMonth()+1)+'-31';
@@ -61,6 +69,7 @@ function SEARCH(){
 		}
 	}
 	if($("#searchrange").prop("checked")==true){
+		$('#thismonthsearch').prop('checked',false);
 		var thisDate= $('#idOfStartDate').val();
 		var thisenddate= $('#idOfEndDate').val();
 	 	var thismonthshow = cashcollection.find({
@@ -90,10 +99,14 @@ function remove(){
 	cashcollection.remove({
      _id:$(this).data('remove')
   })
+	cashcollection.save();
 	$($(this).closest('tr')).remove();
 }
 $("#searchdata").click(SEARCH);    //.click的使用是在「事前」（程式一跑就要出來的按鈕）
 $("#showdata").on('click','.c',remove);     //.on('click',,)的使用是在「事後」（像這樣新增出來時才有的class，需要呼叫時使用）
+$("#searchrange").click(protection);
+$("#thismonthsearch").click(PROTECTION);
+
 </script>
 </body>
 </html>
