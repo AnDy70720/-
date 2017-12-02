@@ -5,27 +5,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link href="記帳.css">
-  <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Chewy" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="sweetalert.js"></script>
   <title>查詢支出</title>
 </head>
-<body style="font-family:'Nosifer', cursive">
+<body style="font-family: 'Chewy', cursive;">
 
 <table   class="table table-dark">
 <thead>
-<br><input type="checkbox" style="font-size: 50px" id="thismonthsearch"> this month</input>
-<br><input type="checkbox" style="font-size:50px" id="searchrange">search with range</input>
-<br><input type="date" name="" id="idOfStartDate" style="font-size: 20px">----</input>
-<input type="date" name="" id='idOfEndDate' style="font-size: 20px">
-	<th scope="col"><button id="searchdata" type="button" class="btn btn-primary">search</button>
-					<a href="查詢比例.html" class="btn btn-primary" role="button">search presant</a></th>
-	<th scope="col">date</th>
-	<th scope="col">type</th>
-	<th scope="col">class</th>
-	<th>price</th>
-	<th>button</th>
+<br><input type="checkbox" id="thismonthsearch" style="width:100px;height:25px;"></input><p "  style="font-size: 25px">this month</p>
+<br><input type="checkbox" id="searchrange" style="width:100px;height:25px;"></input><p  style="font-size: 25px"> search with range</p>
+<br><input type="date" name="" id="idOfStartDate" style="font-size: 25px">----</input>
+<input type="date" name="" id='idOfEndDate' style="font-size: 25px">
+	<th scope="col"><button id="searchdata" type="button" class="btn btn-primary" style="font-size: 25px">search</button>
+					<a href="searp.html" class="btn btn-primary" role="button" style="font-size: 25px">search presant</a></th>
+	<th scope="col" style="font-size:25px">date</th>
+	<th scope="col" style="font-size:25px">type</th>
+	<th scope="col" style="font-size:25px">class</th>
+	<th style="font-size:25px">price</th>
+	<th style="font-size:25px">button</th>
 </thead>
 <tbody id='showdata'></tbody>
 </table>
@@ -87,6 +87,7 @@ function SEARCH(){
 	}
 	if($("#thismonthsearch").prop("checked")==false){
 		if($("#searchrange").prop("checked")==false){
+			debugger;
 		for(i=0;i<show.length;i++){
 	$('tbody').append('<tr><th>'+(i+1)+'</th><td>'+show[i].date+'</td>'+'<td>'+show[i].type+'</td>'+'<td>'+show[i].thing+'</td>'
     +'<td>'+show[i].price+'</td>'+'<td>'+'<button class="c" data-remove='+show[i]._id+'>delete</button>'+'</td>'

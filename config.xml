@@ -1,4 +1,4 @@
 <widget version='1'>
 	<name>expenses</name>
-	
+	<id>expenses</id>
 </widget>
