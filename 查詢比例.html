@@ -29,16 +29,15 @@ try{
 }catch(e){
 	alert(e);
 }
-function classify(){
+
+ function classify(){
+		
 		var partTheFood=cashcollection.find({
-			type:'food'
-		});
-		debugger;
-		var foodcost=partTheFood[0].price
+			type:'food'	
+		});	
 		var partTheClothes=cashcollection.find({
 			type:'clothes'
 		});
-		var foodcost=partTheClothes[0].price
 		var partTheLives=cashcollection.find({
 			type:'lives'
 		});
@@ -51,12 +50,51 @@ function classify(){
 		var partTheFun=cashcollection.find({
 			type:'fun'
 		});
-	// console.log(partTheClothes);
-	for(var i=1;i<partTheFood.length;i++){
-		var foodcost=foodcost+partTheFood[i].price
+var total=0
+var foodcost = 0;
+var clothescost=0;
+var livescost=0;
+var TFcost=0;
+var	educationcost=0;
+var funcost=0;
+	for(var i=0;i<partTheFood.length;i++){
+		foodcost=foodcost+partTheFood[i].price*1;
+		var total=total+foodcost;
 	}
-	debugger;
+	for(var i=0;i<partTheClothes.length;i++){
+		var clothescost=clothescost+partTheClothes[i].price*1;
+		var total=total+clothescost;
 	}
+	
+	for(var i=0;i<partTheLives.length;i++){
+		var livescost=livescost+partTheLives[i].price*1;
+		var total=total+livescost;
+	}
+	
+	for(var i=0;i<partTheTransportationFee.length;i++){
+		var TFcost=TFcost+partTheTransportationFee[i].price*1;
+		var total=total+TFcost
+	}
+	for(var i=0;i<partTheEducation.length;i++){
+		var educationcost=educationcost+partTheEducation[i].price*1;
+		var total=total+educationcost
+	}
+	
+	for(var i=0;i<partTheFun.length;i++){
+		var funcost=funcost+partTheFun[i].price*1;
+		var total=total+funcost
+	}
+
+$('tbody').append('<tr><th>food</th><td>'+foodcost+'</td><td>'+Math.floor(foodcost/total*100)+'%</td>');
+$('tbody').append('<tr><th>clothes</th><td>'+clothescost+'</td><td>'+Math.floor(clothescost/total*100)+'%</td>');
+$('tbody').append('<tr><th>lives</th><td>'+livescost+'</td><td>'+Math.floor(livescost/total*100)+'%</td>');
+$('tbody').append('<tr><th>transportation fee</th><td>'+TFcost+'</td><td>'+Math.floor(TFcost/total*100)+'%</td>');
+$('tbody').append('<tr><th>education</th><td>'+educationcost+'</td><td>'+Math.floor(educationcost/total*100)+'%</td>');
+$('tbody').append('<tr><th>fun</th><td>'+funcost+'</td><td>'+Math.floor(funcost/total*100)+'%</td>');
+}
+
+
+	
 
 </script>
 </body>
